@@ -1,3 +1,11 @@
+//
+//  AppCoordinator.swift
+//  Pulse
+//
+//  Created by Ahmad Ellashy  on 25/03/2026.
+//
+
+
 import UIKit
 
 final class AppCoordinator: Coordinator {
