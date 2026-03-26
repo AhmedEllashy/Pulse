@@ -12,9 +12,11 @@ final class DIContainer {
     // MARK: - Core
     let persistence: PersistenceController
     let networkClient: NetworkClientProtocol
-
+    let webSocketClient: WebSocketClientProtocol
+    
     private init() {
         self.persistence = PersistenceController.shared
         self.networkClient = NetworkClient()
+        self.webSocketClient = WebSocketClient() 
     }
 }

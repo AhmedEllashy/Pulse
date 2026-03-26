@@ -19,6 +19,7 @@ final class PersistenceController {
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Pulse")
 
+        // this for testing purpose
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }

@@ -5,7 +5,6 @@
 //  Created by Ahmad Ellashy  on 25/03/2026.
 //
 
-
 import UIKit
 
 final class AppCoordinator: Coordinator {
@@ -16,11 +15,14 @@ final class AppCoordinator: Coordinator {
         self.window = window
     }
 
-    func start() {
+     func start() {
         let nav = UINavigationController()
         window.rootViewController = nav
         window.makeKeyAndVisible()
 
-        // TODO: launch DashboardCoordinator here next
+        let repository = AssetRepository(networkClient: DIContainer.shared.networkClient)
+        let viewModel = SearchViewModel(repository: repository)
+        let searchVC = SearchViewController(viewModel: viewModel)
+        nav.pushViewController(searchVC, animated: false)
     }
 }
