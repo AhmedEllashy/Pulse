@@ -139,7 +139,17 @@ final class PortfolioViewController: UIViewController {
 
     // MARK: - Actions
     @objc private func addTapped() {
-        // TODO: present AddAssetViewController
+        let repository = AssetRepository(networkClient: DIContainer.shared.networkClient)
+        let searchViewModel = SearchViewModel(repository: repository)
+        let addVC = AddAssetViewController(
+            portfolioViewModel: viewModel,
+            searchViewModel: searchViewModel
+        )
+        addVC.onAssetAdded = { [weak self] in
+            self?.viewModel.loadPortfolio()
+        }
+        let nav = UINavigationController(rootViewController: addVC)
+        present(nav, animated: true)
     }
 
     private func showError(_ message: String) {
