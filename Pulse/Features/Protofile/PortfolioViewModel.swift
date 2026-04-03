@@ -50,6 +50,7 @@ final class PortfolioViewModel {
         } catch {
             errorMessage = error.localizedDescription
         }
+        
     }
 
     // MARK: - Update total value with live prices
