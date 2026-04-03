@@ -13,10 +13,12 @@ final class DIContainer {
     let persistence: PersistenceController
     let networkClient: NetworkClientProtocol
     let webSocketClient: WebSocketClientProtocol
+    let portfolioRepository: PortfolioRepositoryProtocol
     
     private init() {
         self.persistence = PersistenceController.shared
         self.networkClient = NetworkClient()
-        self.webSocketClient = WebSocketClient() 
+        self.webSocketClient = WebSocketClient()
+        self.portfolioRepository = PortfolioRepository(persistence: persistence)
     }
 }

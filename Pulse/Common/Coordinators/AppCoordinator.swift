@@ -15,14 +15,36 @@ final class AppCoordinator: Coordinator {
         self.window = window
     }
 
-     func start() {
+    @MainActor func start() {
         let nav = UINavigationController()
         window.rootViewController = nav
         window.makeKeyAndVisible()
 
+        // Tab bar with Search + Portfolio
+        let tabBar = UITabBarController()
+
+        let searchVC = makeSearchVC()
+        searchVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 0)
+
+        let portfolioVC = makePortfolioVC()
+        portfolioVC.tabBarItem = UITabBarItem(title: "Portfolio", image: UIImage(systemName: "chart.pie"), tag: 1)
+
+        tabBar.viewControllers = [
+            UINavigationController(rootViewController: searchVC),
+            UINavigationController(rootViewController: portfolioVC)
+        ]
+
+        window.rootViewController = tabBar
+    }
+
+    private func makeSearchVC() -> SearchViewController {
         let repository = AssetRepository(networkClient: DIContainer.shared.networkClient)
         let viewModel = SearchViewModel(repository: repository)
-        let searchVC = SearchViewController(viewModel: viewModel)
-        nav.pushViewController(searchVC, animated: false)
+        return SearchViewController(viewModel: viewModel)
+    }
+
+    @MainActor private func makePortfolioVC() -> PortfolioViewController {
+        let viewModel = PortfolioViewModel(repository: DIContainer.shared.portfolioRepository)
+        return PortfolioViewController(viewModel: viewModel)
     }
 }
